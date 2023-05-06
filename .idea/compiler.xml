@@ -6,11 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="JPA-01-Produto-Inclui-Altera-Exclui-incompleto" />
-        <module name="Produto-Inclui-Altera-Exclui-01-JPA" />
         <module name="Exercicio01-Produto-Inclui-Altera-Exclui-incompleto-Intellij" />
-        <module name="JPA-01-Produto-Inclui-Altera-Exclui" />
-        <module name="JPA-01-Produto-Inclui-Altera-Exclui-completo" />
       </profile>
     </annotationProcessing>
   </component>

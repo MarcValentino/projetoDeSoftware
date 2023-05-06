@@ -20,7 +20,7 @@ public class Principal
 		// fatal - error - warning - info - debug
 
 		String nome;
-		double lanceMinimo;
+		String instituicao;
 		String dataCadastro;
 		Autor umAutor;
 
@@ -32,7 +32,7 @@ public class Principal
 			System.out.println('\n' + "1. Cadastrar um autor");
 			System.out.println("2. Alterar um autor");
 			System.out.println("3. Remover um autor");
-			System.out.println("4. Listar todos os autors");
+			System.out.println("4. Listar todos os autores");
 			System.out.println("5. Sair");
 						
 			int opcao = Console.readInt('\n' + 
@@ -43,12 +43,10 @@ public class Principal
 				{
 					nome = Console.readLine('\n' + 
 						"Informe o nome do autor: ");
-					lanceMinimo = Console.readDouble(
-						"Informe o valor do lance mínimo: ");
-					dataCadastro = Console.readLine(
-						"Informe a data de cadastramento do autor: ");
+					instituicao = Console.readLine(
+						"Informe a instituição do autor: ");
 						
-					umAutor = new Autor(nome, lanceMinimo, Util.strToLocalDate(dataCadastro));
+					umAutor = new Autor(nome, instituicao);
 					
 					autorDAO.inclui(umAutor);
 					
@@ -74,11 +72,11 @@ public class Principal
 					System.out.println('\n' + 
 						"Número = " + umAutor.getId() +
 						"    Nome = " + umAutor.getNome() +
-						"    Lance mínimo = " + umAutor.getLanceMinimo());
+						"    Instituicao = " + umAutor.getInstituicao());
 												
 					System.out.println('\n' + "O que você deseja alterar?");
 					System.out.println('\n' + "1. Nome");
-					System.out.println("2. Lance mínimo");
+					System.out.println("2. Instituicao");
 
 					int opcaoAlteracao = Console.readInt('\n' + 
 											"Digite um número de 1 a 2:");
@@ -104,10 +102,10 @@ public class Principal
 							break;
 
 						case 2:
-							double novoLanceMinimo = Console.
-									readDouble("Digite o novo lance mínimo: ");
+							String novaInstituicao = Console.
+									readLine("Digite a nova instituição: ");
 
-							umAutor.setLanceMinimo(novoLanceMinimo);
+							umAutor.setInstituicao(novaInstituicao);
 
 							try
 							{
@@ -187,13 +185,12 @@ public class Principal
 						System.out.println('\n' +
 							"Id = " + autor.getId() +
 							"  Nome = " + autor.getNome() +
-							"  Lance mínimo = " + Util.doubleToStr(autor.getLanceMinimo()) +
-							"  Data Cadastro = " + Util.dateToStr(autor.getDataCadastro()));
+							"  Instituição = " + autor.getInstituicao());
 					}
 
 					break;
 				}
-
+//
 				case 5:
 				{	continua = false;
 					break;

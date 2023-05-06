@@ -10,9 +10,7 @@ public class Autor
 {
     private Long id;
     private String nome;
-    private double lanceMinimo;
-    private LocalDate dataCadastro;
-    private LocalDate dataVenda;
+    private String instituicao;
 
     // ********* Construtores *********
 //                                 Transientes
@@ -24,13 +22,10 @@ public class Autor
     public Autor()
     {
     }
-
     public Autor(String nome,
-                   double lanceMinimo,
-                   LocalDate dataCadastro)
+                 String instituicao)
     {	this.nome = nome;
-        this.lanceMinimo = lanceMinimo;
-        this.dataCadastro = dataCadastro;
+        this.instituicao = instituicao;
     }
 
     // ********* Métodos do Tipo Get *********
@@ -46,23 +41,10 @@ public class Autor
     {	return nome;
     }
 
-    @Column(name="LANCE_MINIMO")
-    public double getLanceMinimo()
-    {	return lanceMinimo;
+    public String getInstituicao()
+    {	return instituicao;
     }
-
-    @Column(name="DATA_CADASTRO")
-    public LocalDate getDataCadastro()
-    {	return dataCadastro;
-    }
-
-    @Column(name="DATA_VENDA")
-    public LocalDate getDataVenda()
-    {	return dataVenda;
-    }
-
     // ********* Métodos do Tipo Set *********
-
     private void setId(Long id)
     {	this.id = id;
     }
@@ -71,16 +53,8 @@ public class Autor
     {	this.nome = nome;
     }
 
-    public void setLanceMinimo(double lanceMinimo)
-    {	this.lanceMinimo = lanceMinimo;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro)
-    {	this.dataCadastro = dataCadastro;
-    }
-
-    public void setDataVenda(LocalDate dataVenda)
-    {	this.dataVenda = dataVenda;
+    public void setInstituicao(String instituicao)
+    {	this.instituicao = instituicao;
     }
 }
 
