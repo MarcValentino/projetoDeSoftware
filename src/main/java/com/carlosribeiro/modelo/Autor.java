@@ -1,9 +1,14 @@
 package com.carlosribeiro.modelo;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name="autor")
 
 public class Autor
@@ -11,14 +16,15 @@ public class Autor
     private Long id;
     private String nome;
     private String instituicao;
+    private int versao;
 
-    // ********* Construtores *********
-//                                 Transientes
-//                                 Persistentes
-//                                 Destacados
-//                                        Autor p = Autor();
-//                                        p.setId(rs.getInt("id"))
-//                                        p.setNome(rs.getString("nome"))
+    @Version
+    public int getVersao() {
+        return versao;
+    }
+    public void setVersao(int versao) {
+        this.versao = versao;
+    }
     public Autor()
     {
     }

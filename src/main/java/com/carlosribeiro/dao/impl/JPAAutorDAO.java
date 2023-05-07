@@ -2,12 +2,14 @@ package com.carlosribeiro.dao.impl;
 
 import com.carlosribeiro.dao.AutorDAO;
 import com.carlosribeiro.excecao.AutorNaoEncontradoException;
+import com.carlosribeiro.excecao.EstadoDeObjetoObsoletoException;
 import com.carlosribeiro.modelo.Autor;
 import com.carlosribeiro.util.FabricaDeEntityManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.LockModeType;
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 
 public class JPAAutorDAO implements AutorDAO
@@ -68,7 +70,7 @@ public class JPAAutorDAO implements AutorDAO
 		}
 	}
 
-	public void altera(Autor umAutor) throws AutorNaoEncontradoException {
+	public void altera(Autor umAutor) throws AutorNaoEncontradoException, EstadoDeObjetoObsoletoException {
 		EntityManager em = null;
 		EntityTransaction tx = null;
 		Autor autor = null;
@@ -89,6 +91,14 @@ public class JPAAutorDAO implements AutorDAO
 			em.merge(umAutor);
 
 			tx.commit();
+		}
+		catch(OptimisticLockException e)
+		{
+			if (tx != null)
+			{
+				tx.rollback();
+			}
+			throw new EstadoDeObjetoObsoletoException("Conflito de versão, objeto já alterado por outro usuário!");
 		}
 		catch(RuntimeException e)
 		{
