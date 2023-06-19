@@ -111,6 +111,31 @@ public class JPAAutorDAO implements AutorDAO
 		{   em.close();
 		}
 	}
+	public List<Autor> buscaAutor(String palavraBuscada, int escolha) throws AutorNaoEncontradoException{
+		EntityManager em = null;
+
+		try
+		{
+			em = FabricaDeEntityManager.criarEntityManager();
+
+			List<Autor> listaResultados = null;
+
+			if(escolha == 1) listaResultados = (List<Autor>) em.createQuery("Select a from Autor a where a.nome like :nome")
+					.setParameter("nome", palavraBuscada)
+					.getResultList();
+			else listaResultados = (List<Autor>) em.createQuery("Select a from Autor a where a.instituicao like :instituicao")
+					.setParameter("instituicao", palavraBuscada)
+					.getResultList();
+
+			if(listaResultados.isEmpty())
+			{	throw new AutorNaoEncontradoException("Nenhum autor encontrado");
+			}
+			return listaResultados;
+		}
+		finally
+		{   em.close();
+		}
+	}
 
 	public void exclui(long numero) throws AutorNaoEncontradoException {
 		EntityManager em = null;

@@ -10,6 +10,7 @@ import corejava.Console;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -34,10 +35,11 @@ public class Principal
 			System.out.println("2. Alterar um autor");
 			System.out.println("3. Remover um autor");
 			System.out.println("4. Listar todos os autores");
-			System.out.println("5. Sair");
+			System.out.println("5. Buscar autor");
+			System.out.println("6. Sair");
 
 			int opcao = Console.readInt('\n' +
-					"Digite um número entre 1 e 5:");
+					"Digite um número entre 1 e 6:");
 
 			switch (opcao) {
 				case 1: {
@@ -69,9 +71,9 @@ public class Principal
 
 					System.out.println('\n' +
 							"Número = " + umAutor.getId() +
-							"    Nome = " + umAutor.getNome() +
-							"    Instituicao = " + umAutor.getInstituicao() +
-							"    Versao = " + umAutor.getVersao());
+							" Nome = " + umAutor.getNome() +
+							" Instituicao = " + umAutor.getInstituicao() +
+							" Versao = " + umAutor.getVersao());
 
 					System.out.println('\n' + "O que você deseja alterar?");
 					System.out.println('\n' + "1. Nome");
@@ -140,7 +142,7 @@ public class Principal
 
 					System.out.println('\n' +
 							"Número = " + umAutor.getId() +
-							"    Nome = " + umAutor.getNome());
+							" Nome = " + umAutor.getNome());
 
 					String resp = Console.readLine('\n' +
 							"Confirma a remoção do autor?");
@@ -183,8 +185,34 @@ public class Principal
 
 					break;
 				}
-//
 				case 5: {
+					try {
+
+						System.out.println('\n' + "Por que atributo você deseja buscar?");
+						System.out.println('\n' + "1. Nome");
+						System.out.println("2. Instituicao");
+
+						int opcaoBusca = Console.readInt('\n' +
+								"Digite um número de 1 a 2:");
+						System.out.println(opcaoBusca == 1 ? "\nDigite o nome do autor" : "\nDigite a instituição do autor");
+						String busca = Console.readLine();
+						List<Autor> resultado = autorDAO.buscaAutor(busca, opcaoBusca);
+						Iterator<Autor> iteravel= resultado.iterator();
+						while(iteravel.hasNext()){
+							Autor autor = iteravel.next();
+							System.out.println('\n' +
+									"Id = " + autor.getId() +
+									"  Nome = " + autor.getNome() +
+									"  Instituição = " + autor.getInstituicao() +
+									"  Versao = " + autor.getVersao());
+						}
+						break;
+					} catch(AutorNaoEncontradoException e){
+						System.out.println('\n' + e.getMessage());
+						break;
+					}
+				}
+				case 6: {
 					continua = false;
 					break;
 				}
